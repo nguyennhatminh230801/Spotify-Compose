@@ -5,16 +5,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.nguyennhatminh614.core.designsystem.annotations.DarkLightPreview
+import com.nguyennhatminh614.core.designsystem.theme.SpotifyComposeTheme
+import com.nguyennhatminh614.core.designsystem.theme.customColorsPalette
+import com.nguyennhatminh614.core.designsystem.theme.customFontStyle
 
 @Composable
-fun PlayerScreenTimerBar(
+internal fun PlayerScreenTimerBar(
     progress: Float,
     currentTime: String,
     remainingTime: String,
@@ -26,6 +32,11 @@ fun PlayerScreenTimerBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 10.dp)
+                .clip(RoundedCornerShape(10.dp))
+            ,
+            color = MaterialTheme.customColorsPalette.primaryColor,
+            trackColor = MaterialTheme.customColorsPalette.trackColor,
+
         )
 
         Row(
@@ -35,23 +46,29 @@ fun PlayerScreenTimerBar(
         ) {
             Text(
                 text = currentTime,
-                color = Color.White
+                style = MaterialTheme.customFontStyle.textStyleSemiBold.copy(
+                    fontSize = 12.sp,
+                )
             )
 
             Text(
                 text = remainingTime,
-                color = Color.White
+                style = MaterialTheme.customFontStyle.textStyleSemiBold.copy(
+                    fontSize = 12.sp,
+                )
             )
         }
     }
 }
 
-@Preview(showBackground = true, apiLevel = 33, backgroundColor = 0xFF311B92)
+@DarkLightPreview
 @Composable
-fun PreviewPlayerScreenTimerBar() {
-    PlayerScreenTimerBar(
-        progress = 0.2f,
-        currentTime = "02:17",
-        remainingTime = "02:17",
-    )
+private fun PreviewPlayerScreenTimerBar() {
+    SpotifyComposeTheme {
+        PlayerScreenTimerBar(
+            progress = 0.8f,
+            currentTime = "02:17",
+            remainingTime = "02:17",
+        )
+    }
 }
