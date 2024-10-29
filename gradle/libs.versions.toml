@@ -13,6 +13,9 @@ appcompat = "1.6.1"
 material = "1.11.0"
 coil = "3.0.0-rc02"
 nav_version = "2.8.3"
+hilt = "2.44"
+ksp-kotlin = "1.9.0-1.0.13"
+hiltNavigationCompose = "1.0.0"
 
 [libraries]
 #Android core
@@ -46,8 +49,15 @@ coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version
 #Android navigation
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "nav_version" }
 
+
+#Hilt
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
-
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-kotlin" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

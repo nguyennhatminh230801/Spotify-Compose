@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -47,7 +48,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
 }
 
 
@@ -60,6 +60,9 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3.android)
+    implementation(libs.hilt.android)
+
+    annotationProcessor(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso.core)

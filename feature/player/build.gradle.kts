@@ -1,7 +1,7 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -9,11 +9,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.nguyennhatminh614.feature.player"
+        //applicationId = "com.nguyennhatminh614.feature.player"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        //versionCode = 1
+        //versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -67,4 +67,9 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
 
     implementation(project(":core:designsystem"))
+
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+
+    annotationProcessor(libs.hilt.compiler)
 }
