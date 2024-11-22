@@ -17,4 +17,7 @@ rootProject.name = "SpotifyCompose"
 include(":app")
 include(":feature")
 include(":feature:player")
-include(":core:designsystem")
+include(":core:android")
+include(":core:model")
+include(":core:repository")
+include(":core:usecase")

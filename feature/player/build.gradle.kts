@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.hilt.android)
+    kotlin("kapt")
 }
 
 android {
@@ -10,8 +12,8 @@ android {
 
     defaultConfig {
         //applicationId = "com.nguyennhatminh614.feature.player"
-        minSdk = 26
-        targetSdk = 34
+        minSdk = Configs.MIN_SDK
+        targetSdk = Configs.TARGET_SDK
         //versionCode = 1
         //versionName = "1.0"
 
@@ -28,28 +30,34 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Configs.SOURCE_COMPATIBILITY
+        targetCompatibility = Configs.TARGET_COMPATIBILITY
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Configs.JVM_TARGET
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = Configs.KOTLIN_COMPILER_EXTENSION_VERSION
     }
 }
+
+kapt {
+    correctErrorTypes = true
+}
+
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.appcompat)
+    implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.androidx.navigation.compose)
+    implementation(project(":core:model"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
@@ -65,11 +73,19 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(libs.compose.ui.tooling)
+    implementation(project(":core:android"))
 
-    implementation(project(":core:designsystem"))
+    implementation(project(":core:repository"))
+
+    implementation (libs.androidx.media3.exoplayer)
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
 
-    annotationProcessor(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.lifecycle.runtime.ktx)
+
+    //implementation(libs.accompanist.permissions)
 }

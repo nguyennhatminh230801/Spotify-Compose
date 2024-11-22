@@ -1,5 +1,7 @@
 [versions]
+accompanistPermissions = "0.32" #For Kotlin Compiler v1.5.x
 core-ktx = "1.12.0"
+kotlinxCoroutinesAndroid = "1.7.3"
 lifecycle-runtime-ktx = "2.7.0"
 activity-compose = "1.8.2"
 compose-bom = "2024.01.00"
@@ -8,18 +10,30 @@ junit = "4.13.2"
 junit-test = "1.1.5"
 espresso-core-test = "3.5.1"
 android-gradle-plugin = "8.2.0"
-kotlin-version = "1.9.0"
+kotlin-version = "1.9.21"
 appcompat = "1.6.1"
 material = "1.11.0"
 coil = "3.0.0-rc02"
+media3Exoplayer = "1.1.1"
+multidex = "2.0.1"
 nav_version = "2.8.3"
-hilt = "2.44"
-ksp-kotlin = "1.9.0-1.0.13"
+hilt = "2.51"
 hiltNavigationCompose = "1.0.0"
+navigationRuntimeKtx = "2.8.3"
+appcompatVersion = "1.7.0"
+
 
 [libraries]
 #Android core
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+
+#Exoplayer
+androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3Exoplayer" }
+
+#Coroutines
+androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 
 #Compose libs
@@ -39,7 +53,7 @@ test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit
 
 #Espresso
 test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core-test" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 #Coil
@@ -49,15 +63,16 @@ coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version
 #Android navigation
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "nav_version" }
 
-
 #Hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-version" }

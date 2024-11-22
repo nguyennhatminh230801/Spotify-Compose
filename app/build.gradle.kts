@@ -1,29 +1,51 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.hilt.android)
+    kotlin("kapt")
 }
 
+
 android {
-    namespace = "com.nguyennhatminh614.spotifycompose"
-    compileSdk = 34
+    namespace = Configs.APPLICATION_ID
+    compileSdk = Configs.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "com.nguyennhatminh614.spotifycompose"
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
+        applicationId = Configs.APPLICATION_ID
+        minSdk = Configs.MIN_SDK
+        targetSdk = Configs.TARGET_SDK
+        versionCode = Configs.VERSION_CODE
+        versionName = Configs.VERSION_NAME
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
 
+    dexOptions {
+        javaMaxHeapSize = "4g"
+    }
+
+    hilt {
+        enableAggregatingTask = true
+    }
+
     buildTypes {
+        debug {
+            multiDexEnabled = true
+            isMinifyEnabled = false
+            multiDexKeepProguard = file("multidex-config.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
         release {
             isMinifyEnabled = false
+            multiDexKeepProguard = file("multidex-config.pro")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -31,17 +53,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Configs.SOURCE_COMPATIBILITY
+        targetCompatibility = Configs.TARGET_COMPATIBILITY
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Configs.JVM_TARGET
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = Configs.KOTLIN_COMPILER_EXTENSION_VERSION
     }
     packaging {
         resources {
@@ -50,6 +72,9 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
 
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -61,8 +86,9 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3.android)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.appcompat)
 
-    annotationProcessor(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso.core)
@@ -70,4 +96,11 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(libs.compose.ui.tooling)
+
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
+
+    implementation(libs.androidx.multidex)
+    implementation(project(":feature:player"))
+    implementation(project(":core:android"))
 }

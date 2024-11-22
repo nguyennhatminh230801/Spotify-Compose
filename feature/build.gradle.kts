@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         //applicationId = "com.nguyennhatminh614.feature"
-        minSdk = 26
-        targetSdk = 34
+        minSdk = Configs.MIN_SDK
+        targetSdk = Configs.TARGET_SDK
         //versionCode = 1
         //versionName = "1.0"
 
@@ -28,18 +28,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Configs.SOURCE_COMPATIBILITY
+        targetCompatibility = Configs.TARGET_COMPATIBILITY
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Configs.JVM_TARGET
     }
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.appcompat)
+    implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
