@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -34,7 +35,11 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Configs.KOTLIN_COMPILER_EXTENSION_VERSION
+    }
 }
+
 
 dependencies {
     implementation(libs.activity.compose)
@@ -46,4 +51,10 @@ dependencies {
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso.core)
 
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation(libs.androidx.room.ktx)
+
+    //implementation(project(":core:database"))
 }

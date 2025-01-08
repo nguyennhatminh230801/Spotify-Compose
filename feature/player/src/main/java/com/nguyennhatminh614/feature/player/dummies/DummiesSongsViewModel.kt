@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -34,7 +35,6 @@ class DummiesSongsViewModel @Inject constructor(
     private val forceRefreshAction = MutableSharedFlow<Boolean?>(
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
-        replay = 1,
     )
 
     init {
@@ -49,6 +49,7 @@ class DummiesSongsViewModel @Inject constructor(
                 Log.d(TAG, "forceRefreshAction: $it")
             }
             .filterNotNull()
+            //.distinctUntilChanged()
             .flatMapLatest { isRefreshing ->
                 flow {
                     if (isRefreshing) {

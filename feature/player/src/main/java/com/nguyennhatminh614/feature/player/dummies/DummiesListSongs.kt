@@ -25,6 +25,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,16 +38,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.example.model.Song
 import com.nguyennhatminh614.core.designsystem.annotations.DarkLightPreview
 import com.nguyennhatminh614.core.designsystem.components.LoadingScreen
 import com.nguyennhatminh614.core.designsystem.theme.SpotifyComposeTheme
+import com.nguyennhatminh614.core.navigation.NavigationEntryPoint
 import com.nguyennhatminh614.feature.player.route.navigateToPlayerScreens
 
 @Composable
 fun DummiesSongRoute(
-    viewModel: DummiesSongsViewModel = hiltViewModel(),
-    navController: NavHostController = rememberNavController(),
+    viewModel: DummiesSongsViewModel,
+    navController: NavHostController,
 ) {
     var isPermissionGranted: Boolean? by rememberSaveable { mutableStateOf(null) }
 
@@ -56,7 +59,9 @@ fun DummiesSongRoute(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         Log.d("DummiesSongRoute", "isGranted: $isGranted")
-        isPermissionGranted = isGranted
+        if (isPermissionGranted != isGranted) {
+            isPermissionGranted = isGranted
+        }
     }
 
     LaunchedEffect(Unit) {
@@ -81,7 +86,15 @@ fun DummiesSongRoute(
         DummiesListSongs(
             songs = songs ?: emptyList(),
             onClick = { song ->
-                val navOptions = NavOptions.Builder().build()
+                val navOptions = navOptions {
+                    popUpTo(
+                        route = NavigationEntryPoint.DUMMIES_LIST_SONG_ROUTE,
+                        popUpToBuilder = {
+                            inclusive = true
+                        }
+                    )
+                }
+
                 navController.navigateToPlayerScreens(
                     song = song,
                     navOptions = navOptions
@@ -184,6 +197,7 @@ private fun PreviewDummiesSongs(
 class SongsPreviewParameterProvider : CollectionPreviewParameterProvider<Song>(
     listOf(
         Song(
+            id = 0,
             name = "name1",
             author = "author1",
             imagePath = Uri.parse(""),
@@ -191,6 +205,7 @@ class SongsPreviewParameterProvider : CollectionPreviewParameterProvider<Song>(
             duration = 0
         ),
         Song(
+            id = 1,
             name = "name2",
             author = "author2",
             imagePath = Uri.parse(""),

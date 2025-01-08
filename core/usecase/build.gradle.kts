@@ -47,6 +47,10 @@ dependencies {
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso.core)
 
+    implementation(project(":core:model"))
+    implementation(project(":core:repository"))
+    ///implementation(project(":core:database"))
+
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
 

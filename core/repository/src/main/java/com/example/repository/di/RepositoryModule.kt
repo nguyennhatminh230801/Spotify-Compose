@@ -1,12 +1,12 @@
 package com.example.repository.di
 
+import com.example.repository.repo.favorite.FavoriteSongRepository
+import com.example.repository.repo.favorite.FavoriteSongRepositoryImpl
 import com.example.repository.repo.song.SongRepository
 import com.example.repository.repo.song.SongRepositoryImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -19,4 +19,10 @@ abstract class RepositoryModule {
     abstract fun bindSongRepository(
         songRepositoryImpl: SongRepositoryImpl
     ): SongRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFavoriteSongRepository(
+        favoriteSongRepositoryImpl: FavoriteSongRepositoryImpl
+    ): FavoriteSongRepository
 }

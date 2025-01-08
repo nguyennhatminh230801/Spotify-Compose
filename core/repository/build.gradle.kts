@@ -44,12 +44,14 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(project(":core:usecase"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso.core)
 
     implementation(project(":core:model"))
+    implementation(project(":core:database"))
+    implementation(project(":core:converter"))
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 }

@@ -76,6 +76,8 @@ dependencies {
     implementation(project(":core:android"))
 
     implementation(project(":core:repository"))
+    implementation(project(":core:usecase"))
+    implementation(project(":core:model"))
 
     implementation (libs.androidx.media3.exoplayer)
 

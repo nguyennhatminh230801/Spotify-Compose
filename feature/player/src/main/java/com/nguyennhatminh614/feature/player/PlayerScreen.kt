@@ -50,7 +50,8 @@ fun PlayerScreenRoute(
     var progress by remember { mutableFloatStateOf(0f) }
     var currentTime by remember { mutableStateOf("0:00") }
     var remainingTime by remember { mutableStateOf("9:99") }
-    var isFavorite by remember { mutableStateOf(false) }
+
+    val isFavorite: Boolean by viewModel.isFavorite.collectAsStateWithLifecycle()
 
     val song: Song? by viewModel.song.collectAsStateWithLifecycle()
 
@@ -62,7 +63,7 @@ fun PlayerScreenRoute(
             currentTime = currentTime,
             remainingTime = remainingTime,
             onBackPress = { navController.popBackStack() },
-            onFavoriteClick = { isFavorite = isFavorite.not() },
+            onFavoriteClick = { viewModel.toggleFavorite() },
             modifier = modifier
         )
     }

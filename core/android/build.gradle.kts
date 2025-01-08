@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -37,6 +38,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Configs.KOTLIN_COMPILER_EXTENSION_VERSION
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {

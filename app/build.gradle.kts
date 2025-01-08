@@ -103,4 +103,5 @@ dependencies {
     implementation(libs.androidx.multidex)
     implementation(project(":feature:player"))
     implementation(project(":core:android"))
+    //implementation(project(":core:database"))
 }
